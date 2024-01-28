@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_assignments" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.collegescheduler.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_exams"
+        android:name="com.example.collegescheduler.ui.exams.ExamsFragment"
         android:label="@string/menu_exams"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_exams" />
 </navigation>

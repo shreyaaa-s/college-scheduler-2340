@@ -1,4 +1,4 @@
-package com.example.collegescheduler.ui.slideshow;
+package com.example.collegescheduler.ui.exams;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.collegescheduler.databinding.FragmentSlideshowBinding;
+import com.example.collegescheduler.databinding.FragmentExamsBinding;
 
-public class SlideshowFragment extends Fragment {
+public class ExamsFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentExamsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        ExamsViewModel examsViewModel =
+                new ViewModelProvider(this).get(ExamsViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentExamsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textExams;
+        examsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
