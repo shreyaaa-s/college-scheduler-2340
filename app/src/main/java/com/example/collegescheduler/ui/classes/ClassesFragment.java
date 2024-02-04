@@ -22,12 +22,8 @@ import java.util.ArrayList;
 
 public class ClassesFragment extends Fragment {
 
-    private ArrayList<String> courses;
-    private ArrayAdapter<String> coursesAdapter;
-    private ArrayList<String> instructors;
-    private ArrayAdapter<String> instructorsAdapter;
-    private ArrayList<String> times;
-    private ArrayAdapter<String> timesAdapter;
+    private ArrayList<String> items;
+    private ArrayAdapter<String> itemsAdapter;
     private ListView listView;
     private Button button;
 
@@ -54,9 +50,9 @@ public class ClassesFragment extends Fragment {
             }
         });
 
-        times = new ArrayList<>();
-        timesAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_list_item_1, times);
-        listView.setAdapter(timesAdapter);
+        items = new ArrayList<>();
+        itemsAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_list_item_1, items);
+        listView.setAdapter(itemsAdapter);
         setUpListViewListener();
 
         return root;
@@ -69,8 +65,8 @@ public class ClassesFragment extends Fragment {
                 Context context = getActivity().getApplicationContext();
                 Toast.makeText(context, "Class removed", Toast.LENGTH_LONG).show();
 
-                times.remove(position);
-                timesAdapter.notifyDataSetChanged();
+                items.remove(position);
+                itemsAdapter.notifyDataSetChanged();
                 return true;
             }
 
@@ -92,10 +88,12 @@ public class ClassesFragment extends Fragment {
         } else if (timeText.equals("")) {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter a time", Toast.LENGTH_LONG).show();
         } else{
-            timesAdapter.add(courseText + "\n" + instructorText + "\n" + timeText);
+            itemsAdapter.add(courseText + "\n" + instructorText + "\n" + timeText);
+            courseInput.setText("");
+            instructorInput.setText("");
             timeInput.setText("");
-            Toast.makeText(getActivity().getApplicationContext(), timeText, Toast.LENGTH_LONG).show();
-            timesAdapter.notifyDataSetChanged();
+            Toast.makeText(getActivity().getApplicationContext(), "Added new class", Toast.LENGTH_LONG).show();
+            itemsAdapter.notifyDataSetChanged();
         }
     }
 
