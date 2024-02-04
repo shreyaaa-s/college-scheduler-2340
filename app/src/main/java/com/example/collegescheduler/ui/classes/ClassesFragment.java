@@ -58,21 +58,6 @@ public class ClassesFragment extends Fragment {
         return root;
     }
 
-    private void setUpListViewListener() {
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Context context = getActivity().getApplicationContext();
-                Toast.makeText(context, "Class removed", Toast.LENGTH_LONG).show();
-
-                items.remove(position);
-                itemsAdapter.notifyDataSetChanged();
-                return true;
-            }
-
-        });
-    }
-
     private void addItem(View root, View view) {
         EditText courseInput = root.findViewById(R.id.editCourseText);
         String courseText = courseInput.getText().toString();
@@ -95,6 +80,47 @@ public class ClassesFragment extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), "Added new class", Toast.LENGTH_LONG).show();
             itemsAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void editItem(int position) {
+        String selectedItem = items.get(position);
+
+        String[] parts = selectedItem.split("\n");
+
+        EditText courseInput = getView().findViewById(R.id.editCourseText);
+        courseInput.setText(parts[0]);
+
+        EditText instructorInput = getView().findViewById(R.id.editInstructorText);
+        instructorInput.setText(parts[1]);
+
+        EditText timeInput = getView().findViewById(R.id.editTimeText);
+        timeInput.setText(parts[2]);
+
+        Toast.makeText(getActivity(),"Course details retrieved",Toast.LENGTH_LONG).show();
+
+        items.remove(position);
+        itemsAdapter.notifyDataSetChanged();
+    }
+
+    private void setUpListViewListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Context context = getActivity().getApplicationContext();
+                Toast.makeText(context,"Course details removed",Toast.LENGTH_LONG).show();
+                items.remove(position);
+                itemsAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
+        // Add click listener for editing an item
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                editItem(position);
+            }
+        });
     }
 
     @Override
