@@ -16,22 +16,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.collegescheduler.R;
-import com.example.collegescheduler.databinding.FragmentClassesBinding;
+import com.example.collegescheduler.databinding.FragmentTodoBinding;
 
 import java.util.ArrayList;
 
 public class TodoFragment extends Fragment {
 
-    private ArrayList<String> task;
-    private ArrayAdapter<String> taskAdapter;
+    private ArrayList<String> items;
+    private ArrayAdapter<String> itemsAdapter;
     private ArrayList<String> details;
     private ArrayAdapter<String> detailsAdapter;
     private ListView listview;
     private Button button;
 
-    private FragmentClassesBinding binding;
+    private FragmentTodoBinding binding;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentClassesBinding.inflate(inflater, container, false);
+        binding = FragmentTodoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         listview = root.findViewById(R.id.listview);
@@ -44,12 +44,29 @@ public class TodoFragment extends Fragment {
             }
         });
 
-        task = new ArrayList<>();
-        taskAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_list_item_1, task);
-        listview.setAdapter(taskAdapter);
+        items = new ArrayList<>();
+        itemsAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_list_item_1, items);
+        listview.setAdapter(itemsAdapter);
         setUpListViewListener();
 
         return root;
+    }
+
+
+    private void editItem(int position) {
+        String selectedItem = items.get(position);
+
+        String[] parts = selectedItem.split("\n");
+
+        EditText taskInput = getView().findViewById(R.id.editTaskText);
+        taskInput.setText(parts[0]);
+
+        EditText detailsInput = getView().findViewById(R.id.editDetailsTextMultiLine);
+        detailsInput.setText(parts[1]);
+
+        items.remove(position);
+        Toast.makeText(getActivity(), "Task retrieved", Toast.LENGTH_LONG).show();
+        itemsAdapter.notifyDataSetChanged();
     }
 
     private void setUpListViewListener() {
@@ -58,9 +75,16 @@ public class TodoFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Context context = getActivity().getApplicationContext();
                 Toast.makeText(context, "Task removed", Toast.LENGTH_LONG).show();
-                task.remove(position);
-                taskAdapter.notifyDataSetChanged();
+                items.remove(position);
+                itemsAdapter.notifyDataSetChanged();
                 return true;
+            }
+        });
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                editItem(position);
             }
         });
     }
@@ -76,13 +100,11 @@ public class TodoFragment extends Fragment {
         } else if(detailsText.equals("")) {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter task details", Toast.LENGTH_LONG).show();
         } else {
-            taskAdapter.add(taskText + "\n" + detailsText);
+            itemsAdapter.add(taskText + "\n" + detailsText);
             taskInput.setText("");
-            detailsAdapter.add(taskText + "\n" + detailsText);
             detailsInput.setText("");
 //            Toast.makeText(getActivity().getApplicationContext(), taskText, Toast.LENGTH_LONG).show();
-            taskAdapter.notifyDataSetChanged();
-            detailsAdapter.notifyDataSetChanged();
+            itemsAdapter.notifyDataSetChanged();
         }
 
     }
