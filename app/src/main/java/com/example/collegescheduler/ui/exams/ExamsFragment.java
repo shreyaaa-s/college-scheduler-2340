@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.jar.Attributes;
 
 public class ExamsFragment extends Fragment {
 
@@ -68,14 +69,22 @@ public class ExamsFragment extends Fragment {
     }
 
     private void addItem(View v, View root) {
-        EditText input = root.findViewById(R.id.editTextExam);
-        String itemText = input.getText().toString();
+        EditText Nameinput = root.findViewById(R.id.editTextExamName);
+        String NameText = Nameinput.getText().toString();
 
-        if(!(itemText.equals(""))){
-            itemsAdapter.add(itemText);
-            input.setText("");
+        EditText Timeinput = root.findViewById(R.id.editTextExamTime);
+        String TimeText = Timeinput.getText().toString();
+
+        EditText Locationinput = root.findViewById(R.id.editTextExamLocation);
+        String LocationText = Locationinput.getText().toString();
+
+        if(!(NameText.equals("")) && !(TimeText.equals("")) && !(LocationText.equals(""))){
+            itemsAdapter.add(NameText + "\n" + TimeText + "\n" + LocationText);
+            Nameinput.setText("");
+            Timeinput.setText("");
+            Locationinput.setText("");
         } else{
-            Toast.makeText(getActivity().getApplicationContext(), "Please enter text",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Fill in missing fields",Toast.LENGTH_LONG).show();
         }
     }
 
