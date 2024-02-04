@@ -66,6 +66,13 @@ public class ExamsFragment extends Fragment {
                 return true;
             }
         });
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity().getApplicationContext(), "Editing exam details",Toast.LENGTH_LONG).show();
+                editItem(position);
+            }
+        });
     }
 
     private void addItem(View v, View root) {
@@ -86,6 +93,28 @@ public class ExamsFragment extends Fragment {
         } else{
             Toast.makeText(getActivity().getApplicationContext(), "Fill in missing fields",Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void editItem(int position) {
+        // Fetch the item to edit
+        String selectedItem = items.get(position);
+
+        // Split the item into name, time, and location
+        String[] parts = selectedItem.split("\n");
+
+        // Set the values of EditText fields to the selected item's values
+        EditText Nameinput = getView().findViewById(R.id.editTextExamName);
+        Nameinput.setText(parts[0]);
+
+        EditText Timeinput = getView().findViewById(R.id.editTextExamTime);
+        Timeinput.setText(parts[1]);
+
+        EditText Locationinput = getView().findViewById(R.id.editTextExamLocation);
+        Locationinput.setText(parts[2]);
+
+        // Remove the selected item from the list
+        items.remove(position);
+        itemsAdapter.notifyDataSetChanged();
     }
 
     @Override
