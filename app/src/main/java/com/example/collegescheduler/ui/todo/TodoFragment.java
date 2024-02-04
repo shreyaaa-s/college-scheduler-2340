@@ -66,6 +66,30 @@ public class TodoFragment extends Fragment {
     }
 
     private void addItem(View root, View view) {
-//        EditText taskInput
+        EditText taskInput = root.findViewById(R.id.editTaskText);
+        String taskText = taskInput.getText().toString();
+        EditText detailsInput = root.findViewById(R.id.editDetailsTextMultiLine);
+        String detailsText = detailsInput.getText().toString();
+
+        if(taskText.equals("")) {
+            Toast.makeText(getActivity().getApplicationContext(), "Please enter a task", Toast.LENGTH_LONG).show();
+        } else if(detailsText.equals("")) {
+            Toast.makeText(getActivity().getApplicationContext(), "Please enter task details", Toast.LENGTH_LONG).show();
+        } else {
+            taskAdapter.add(taskText + "\n" + detailsText);
+            taskInput.setText("");
+            detailsAdapter.add(taskText + "\n" + detailsText);
+            detailsInput.setText("");
+//            Toast.makeText(getActivity().getApplicationContext(), taskText, Toast.LENGTH_LONG).show();
+            taskAdapter.notifyDataSetChanged();
+            detailsAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
