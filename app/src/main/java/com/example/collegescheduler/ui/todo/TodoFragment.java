@@ -17,8 +17,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentTodoBinding;
+import com.example.collegescheduler.ui.exams.ExamsViewModel;
 
 import java.util.ArrayList;
+
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 public class TodoFragment extends Fragment {
 
@@ -28,6 +32,7 @@ public class TodoFragment extends Fragment {
     private ArrayAdapter<String> detailsAdapter;
     private ListView listview;
     private Button button;
+    private TodoFragmentViewModel todoViewModel;
 
     private FragmentTodoBinding binding;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,15 +42,18 @@ public class TodoFragment extends Fragment {
         listview = root.findViewById(R.id.listview);
         button = root.findViewById(R.id.button);
 
+        todoViewModel = new ViewModelProvider(this).get(TodoFragmentViewModel.class);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addItem(root, view);
+                itemsAdapter.notifyDataSetChanged();
             }
         });
 
-        items = new ArrayList<>();
-        itemsAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_list_item_1, items);
+        ArrayList<String> items = todoViewModel.getItems();
+        itemsAdapter = new ArrayAdapter<>(root.getContext(), android.R.layout.simple_list_item_1, items);
         listview.setAdapter(itemsAdapter);
         setUpListViewListener();
 
@@ -54,7 +62,7 @@ public class TodoFragment extends Fragment {
 
 
     private void editItem(int position) {
-        String selectedItem = items.get(position);
+        String selectedItem = todoViewModel.getItems().get(position);
 
         String[] parts = selectedItem.split("\n");
 
@@ -64,7 +72,7 @@ public class TodoFragment extends Fragment {
         EditText detailsInput = getView().findViewById(R.id.editDetailsTextMultiLine);
         detailsInput.setText(parts[1]);
 
-        items.remove(position);
+        todoViewModel.removeItem(position);
         Toast.makeText(getActivity(), "Task retrieved", Toast.LENGTH_LONG).show();
         itemsAdapter.notifyDataSetChanged();
     }
@@ -75,7 +83,7 @@ public class TodoFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Context context = getActivity().getApplicationContext();
                 Toast.makeText(context, "Task removed", Toast.LENGTH_LONG).show();
-                items.remove(position);
+                todoViewModel.removeItem(position);
                 itemsAdapter.notifyDataSetChanged();
                 return true;
             }
@@ -100,11 +108,10 @@ public class TodoFragment extends Fragment {
         } else if(detailsText.equals("")) {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter task details", Toast.LENGTH_LONG).show();
         } else {
-            itemsAdapter.add(taskText + "\n" + detailsText);
+            todoViewModel.addItem(taskText + "\n" + detailsText);
             taskInput.setText("");
             detailsInput.setText("");
 //            Toast.makeText(getActivity().getApplicationContext(), taskText, Toast.LENGTH_LONG).show();
-            itemsAdapter.notifyDataSetChanged();
         }
 
     }
