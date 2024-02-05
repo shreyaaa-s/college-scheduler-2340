@@ -20,37 +20,42 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.jar.Attributes;
 
+//changes
+
+import androidx.lifecycle.ViewModelProvider;
+
+
 public class ExamsFragment extends Fragment {
 
+    private ExamsViewModel examsViewModel;
     private FragmentExamsBinding binding;
-    private ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
     private ListView listview;
     private Button button;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        //ExamsViewModel examsViewModel =
-               // new ViewModelProvider(this).get(ExamsViewModel.class);
 
         binding = FragmentExamsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //final TextView textView = binding.ListViewExam;
-        //examsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         listview = root.findViewById(R.id.ListViewExam);
         button = root.findViewById((R.id.buttonExam));
+
+
+        examsViewModel = new ViewModelProvider(this).get(ExamsViewModel.class);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addItem(v, root);
+                itemsAdapter.notifyDataSetChanged();
             }
         });
-        items = new ArrayList<>();
+        ArrayList<String> items = examsViewModel.getItems();
         itemsAdapter = new ArrayAdapter<>(root.getContext(), android.R.layout.simple_list_item_1, items);
         listview.setAdapter(itemsAdapter);
         setUpListViewListener();
-
 
         return root;
     }
@@ -60,8 +65,8 @@ public class ExamsFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Context context = getActivity().getApplicationContext();
-                Toast.makeText(context,"Exam details removed",Toast.LENGTH_LONG).show();
-                items.remove(position);
+                Toast.makeText(context, "Exam details removed", Toast.LENGTH_LONG).show();
+                examsViewModel.removeItem(position);
                 itemsAdapter.notifyDataSetChanged();
                 return true;
             }
@@ -85,24 +90,20 @@ public class ExamsFragment extends Fragment {
         EditText Locationinput = root.findViewById(R.id.editTextExamLocation);
         String LocationText = Locationinput.getText().toString();
 
-        if(!(NameText.equals("")) && !(TimeText.equals("")) && !(LocationText.equals(""))){
-            itemsAdapter.add(NameText + "\n" + TimeText + "\n" + LocationText);
+        if (!(NameText.equals("")) && !(TimeText.equals("")) && !(LocationText.equals(""))) {
+            examsViewModel.addItem(NameText + "\n" + TimeText + "\n" + LocationText);
             Nameinput.setText("");
             Timeinput.setText("");
             Locationinput.setText("");
-        } else{
-            Toast.makeText(getActivity().getApplicationContext(), "Fill in missing fields",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "Fill in missing fields", Toast.LENGTH_LONG).show();
         }
     }
 
     private void editItem(int position) {
-        // Fetch the item to edit
-        String selectedItem = items.get(position);
-
-        // Split the item into name, time, and location
+        String selectedItem = examsViewModel.getItems().get(position);
         String[] parts = selectedItem.split("\n");
 
-        // Set the values of EditText fields to the selected item's values
         EditText Nameinput = getView().findViewById(R.id.editTextExamName);
         Nameinput.setText(parts[0]);
 
@@ -112,8 +113,7 @@ public class ExamsFragment extends Fragment {
         EditText Locationinput = getView().findViewById(R.id.editTextExamLocation);
         Locationinput.setText(parts[2]);
 
-        // Remove the selected item from the list
-        items.remove(position);
+        examsViewModel.removeItem(position);
         itemsAdapter.notifyDataSetChanged();
     }
 
