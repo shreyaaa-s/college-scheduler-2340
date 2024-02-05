@@ -113,8 +113,14 @@ public class AssignmentsFragment extends Fragment {
         String[] parts = selectedItem.split("\n");
 
         // Set the values of EditText fields to the selected item's values
-        EditText Nameinput = getView().findViewById(R.id.editNameText);
-        Nameinput.setText(parts[0]);
+        EditText nameInput = getView().findViewById(R.id.editNameText);
+        nameInput.setText(parts[0]);
+
+        EditText dateeInput = getView().findViewById(R.id.editDateText);
+        dateeInput.setText(parts[1]);
+
+        EditText classInput = getView().findViewById(R.id.editClassText);
+        classInput.setText(parts[2]);
 
         // Remove the selected item from the list
         items.remove(position);
