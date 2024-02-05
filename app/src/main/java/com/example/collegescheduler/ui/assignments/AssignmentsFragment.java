@@ -10,12 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAssignmentsBinding;
@@ -75,17 +73,52 @@ public class AssignmentsFragment extends Fragment {
                 return true;
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                editItem(position);
+            }
+        });
     }
 
     private void addItem(View view, View root) {
-        EditText input = root.findViewById(R.id.editTextText);
-        String itemText = input.getText().toString();
+        EditText nameInput = root.findViewById(R.id.editNameText);
+        String nameText = nameInput.getText().toString();
+        EditText dateInput = root.findViewById(R.id.editDateText);
+        String dateText = dateInput.getText().toString();
+        EditText classInput = root.findViewById(R.id.editClassText);
+        String classText = classInput.getText().toString();
 
-        if(!(itemText.equals(""))){
-            itemsAdapter.add(itemText);
+        if(nameText.equals("")){
+            Toast.makeText(getActivity().getApplicationContext(), "Please enter assignment name.", Toast.LENGTH_LONG);
+        } else if(dateText.equals("")){
+            Toast.makeText(getActivity().getApplicationContext(), "Please enter assignment due date.", Toast.LENGTH_LONG);
+        } else if(classText.equals("")){
+            Toast.makeText(getActivity().getApplicationContext(), "Please enter class.", Toast.LENGTH_LONG);
         } else{
-            Toast.makeText(getActivity().getApplicationContext(), "Please enter text...", Toast.LENGTH_LONG).show();
+            itemsAdapter.add(nameText + "\n" + dateText + "\n" + classText);
+            nameInput.setText("");
+            dateInput.setText("");
+            classInput.setText("");
+            Toast.makeText(getActivity().getApplicationContext(), "Added new class", Toast.LENGTH_LONG).show();
+            itemsAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void editItem(int position){
+        // Fetch the item to edit
+        String selectedItem = items.get(position);
+
+        // Split the item into name, time, and location
+        String[] parts = selectedItem.split("\n");
+
+        // Set the values of EditText fields to the selected item's values
+        EditText Nameinput = getView().findViewById(R.id.editNameText);
+        Nameinput.setText(parts[0]);
+
+        // Remove the selected item from the list
+        items.remove(position);
+        itemsAdapter.notifyDataSetChanged();
     }
 
     @Override
