@@ -19,10 +19,12 @@ import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentClassesBinding;
 
 import java.util.ArrayList;
+import androidx.lifecycle.ViewModelProvider;
 
 public class ClassesFragment extends Fragment {
 
     private ArrayList<String> items;
+    private ClassesViewModel classesViewModel;
     private ArrayAdapter<String> itemsAdapter;
     private ListView listView;
     private Button button;
@@ -42,15 +44,17 @@ public class ClassesFragment extends Fragment {
 
         listView = root.findViewById(R.id.listview);
         button = root.findViewById(R.id.button);
+        classesViewModel = new ViewModelProvider(this).get(ClassesViewModel.class);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addItem(root, view);
+                itemsAdapter.notifyDataSetChanged();
             }
         });
 
-        items = new ArrayList<>();
+        ArrayList<String> items = classesViewModel.getItems();
         itemsAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(itemsAdapter);
         setUpListViewListener();
@@ -73,12 +77,11 @@ public class ClassesFragment extends Fragment {
         } else if (timeText.equals("")) {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter a time", Toast.LENGTH_LONG).show();
         } else{
-            itemsAdapter.add(courseText + "\n" + instructorText + "\n" + timeText);
+            classesViewModel.addItem(courseText + "\n" + instructorText + "\n" + timeText);
             courseInput.setText("");
             instructorInput.setText("");
             timeInput.setText("");
             Toast.makeText(getActivity().getApplicationContext(), "Added new class", Toast.LENGTH_LONG).show();
-            itemsAdapter.notifyDataSetChanged();
         }
     }
 
@@ -98,7 +101,7 @@ public class ClassesFragment extends Fragment {
 
         Toast.makeText(getActivity(),"Course details retrieved",Toast.LENGTH_LONG).show();
 
-        items.remove(position);
+        classesViewModel.removeItem(position);
         itemsAdapter.notifyDataSetChanged();
     }
 
@@ -108,7 +111,7 @@ public class ClassesFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Context context = getActivity().getApplicationContext();
                 Toast.makeText(context,"Course details removed",Toast.LENGTH_LONG).show();
-                items.remove(position);
+                classesViewModel.removeItem(position);
                 itemsAdapter.notifyDataSetChanged();
                 return true;
             }
