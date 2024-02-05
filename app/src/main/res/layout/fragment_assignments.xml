@@ -20,6 +20,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    
+<!--    <Button-->
+<!--        android:id="@+id/editDateButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Due Date"-->
+<!--        android:textSize="30sp"-->
+<!--        android:textColor="@color/black"-->
+<!--        style="?android:spinnerStyle"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/editNameText"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/button"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:onClick="openDatePicker"/>-->
+
+    <Button
+        android:id="@+id/datePickerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Date"
+        android:layout_centerInParent="true"
+        />
 
     <EditText
         android:id="@+id/editNameText"
