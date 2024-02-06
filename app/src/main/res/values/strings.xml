@@ -10,4 +10,7 @@
     <string name="menu_classes">Classes</string>
     <string name="menu_assignments">Assignments</string>
     <string name="menu_exams">Exams</string>
+
+    <string name="classes_header">My Classes</string>
+    <string name="add_class">Add Class</string>
 </resources>
