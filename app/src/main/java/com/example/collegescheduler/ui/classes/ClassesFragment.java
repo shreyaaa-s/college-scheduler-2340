@@ -86,7 +86,7 @@ public class ClassesFragment extends Fragment {
     }
 
     private void editItem(int position) {
-        String selectedItem = items.get(position);
+        String selectedItem = classesViewModel.getItems().get(position);
 
         String[] parts = selectedItem.split("\n");
 
