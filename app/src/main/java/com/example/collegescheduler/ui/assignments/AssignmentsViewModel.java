@@ -52,11 +52,9 @@ public class AssignmentsViewModel extends ViewModel {
               return data1[tog].compareTo(data2[tog]);
           }
       });
-//
 
     }
 
-    public void sortArrayList() {
 
-    }
+
 }

@@ -25,9 +25,11 @@ import com.example.collegescheduler.ui.exams.ExamsViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import java.text.SimpleDateFormat;
 
 public class AssignmentsFragment extends Fragment {
 
@@ -136,8 +138,11 @@ public class AssignmentsFragment extends Fragment {
         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
                 new DatePickerDialog.OnDateSetListener(){
                     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth){
-                        String selectedDate = (month + 1) + "/" + dayOfMonth + "/" + year;
-                        editDateText.setText(selectedDate);;
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+                        Calendar selectedDate = Calendar.getInstance();
+                        selectedDate.set(year, month, dayOfMonth);
+                        String formattedDate = dateFormat.format(selectedDate.getTime());
+                        editDateText.setText(formattedDate);
                     }
                 }, year, month, dayOfMonth);
         datePickerDialog.show();
