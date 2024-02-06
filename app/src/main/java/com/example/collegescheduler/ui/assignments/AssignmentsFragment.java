@@ -41,6 +41,7 @@ public class AssignmentsFragment extends Fragment {
     private DatePickerDialog datePickerDialogue;
 //    private Button dateButton;
     private Button datePickerButton;
+    private Button sortButton;
 //    private Calendar calendar;
     private TextView editDateText;
 
@@ -56,6 +57,7 @@ public class AssignmentsFragment extends Fragment {
         button = root.findViewById(R.id.button);
         datePickerButton = root.findViewById(R.id.datePickerButton);
         editDateText = root.findViewById(R.id.editDateText);
+        sortButton = root.findViewById(R.id.sortButton);
 
         assignmentsViewModel = new ViewModelProvider(this).get(AssignmentsViewModel.class);
 
@@ -64,6 +66,16 @@ public class AssignmentsFragment extends Fragment {
             public void onClick(View view) {
 
                 addItem(view, root);
+                itemsAdapter.notifyDataSetChanged();
+            }
+        });
+
+        //Sorting changes
+
+        sortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                assignmentsViewModel.sortArray(1);
                 itemsAdapter.notifyDataSetChanged();
             }
         });
