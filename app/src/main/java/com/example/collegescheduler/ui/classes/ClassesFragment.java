@@ -19,7 +19,11 @@ import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentClassesBinding;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ClassesFragment extends Fragment {
 
@@ -28,13 +32,15 @@ public class ClassesFragment extends Fragment {
     private ArrayAdapter<String> itemsAdapter;
     private ListView listView;
     private Button button;
+    private List<ClassesData> list;
+    private RecyclerView recyclerView;
+
+
 
     private FragmentClassesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        ClassesViewModel classesViewModel =
-//                new ViewModelProvider(this).get(ClassesViewModel.class);
 
         binding = FragmentClassesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -45,6 +51,16 @@ public class ClassesFragment extends Fragment {
         listView = root.findViewById(R.id.listview);
         button = root.findViewById(R.id.button);
         classesViewModel = new ViewModelProvider(this).get(ClassesViewModel.class);
+        recyclerView
+                = (RecyclerView)root.findViewById(
+                R.id.recyclerView);
+
+//        adapter
+//                = new ClassesAdapter(
+//                list, getApplication(),listiner);
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(
+//                new LinearLayoutManager(classes.this));
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +99,10 @@ public class ClassesFragment extends Fragment {
             timeInput.setText("");
             Toast.makeText(getActivity().getApplicationContext(), "Added new class", Toast.LENGTH_LONG).show();
         }
+
+
+        list = getData(courseText, instructorText, timeText);
+
     }
 
     private void editItem(int position) {
@@ -124,6 +144,13 @@ public class ClassesFragment extends Fragment {
                 editItem(position);
             }
         });
+    }
+
+
+    private List<ClassesData> getData(String classname, String instructor, String time) {
+        List<ClassesData> list = new ArrayList<>();
+        list.add(new ClassesData(classname, instructor, time));
+        return list;
     }
 
     @Override
