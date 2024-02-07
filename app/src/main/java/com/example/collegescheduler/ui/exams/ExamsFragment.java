@@ -149,7 +149,7 @@ public class ExamsFragment extends Fragment {
         EditText Timeinput = getView().findViewById(R.id.editTextExamTime);
         Timeinput.setText(parts[3]);
 
-        EditText Dateinput = getView().findViewById(R.id.editTextExamLocation);
+        EditText Dateinput = getView().findViewById(R.id.editDateText);
         Dateinput.setText(parts[5]);
 
         EditText Locationinput = getView().findViewById(R.id.editTextExamLocation);
