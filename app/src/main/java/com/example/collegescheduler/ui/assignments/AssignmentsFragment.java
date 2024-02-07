@@ -182,11 +182,11 @@ public class AssignmentsFragment extends Fragment {
         String classText = classInput.getText().toString();
 
         if(nameText.equals("")){
-            Toast.makeText(getActivity().getApplicationContext(), "Please enter assignment name.", Toast.LENGTH_LONG);
+            Toast.makeText(getActivity().getApplicationContext(), "Please enter assignment name.", Toast.LENGTH_LONG).show();
         } else if(dateText.equals("")){
-            Toast.makeText(getActivity().getApplicationContext(), "Please enter assignment due date.", Toast.LENGTH_LONG);
+            Toast.makeText(getActivity().getApplicationContext(), "Please enter assignment due date.", Toast.LENGTH_LONG).show();
         } else if(classText.equals("")){
-            Toast.makeText(getActivity().getApplicationContext(), "Please enter class.", Toast.LENGTH_LONG);
+            Toast.makeText(getActivity().getApplicationContext(), "Please enter class.", Toast.LENGTH_LONG).show();
         } else{
 //            itemsAdapter.add(nameText + "\n" + dateText + "\n" + classText);
             assignmentsViewModel.addItem(nameText + "\n" + dateText + "\n" + classText);
