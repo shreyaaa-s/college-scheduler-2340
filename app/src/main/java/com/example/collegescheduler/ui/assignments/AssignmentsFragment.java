@@ -1,6 +1,5 @@
 package com.example.collegescheduler.ui.assignments;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,13 +19,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAssignmentsBinding;
-import com.example.collegescheduler.ui.exams.ExamsViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import java.text.SimpleDateFormat;
 
@@ -40,19 +36,15 @@ public class AssignmentsFragment extends Fragment {
     private ArrayAdapter<String> itemsAdapter;
     private ListView listView;
     private Button button;
-    private DatePickerDialog datePickerDialogue;
-//    private Button dateButton;
     private Button datePickerButton;
     private Button sortButtonDate;
     private Button sortButtonClass;
-//    private Calendar calendar;
     private TextView editDateText;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(binding.getRoot());
         binding = FragmentAssignmentsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -75,7 +67,6 @@ public class AssignmentsFragment extends Fragment {
         });
 
         //Sorting changes
-
         sortButtonDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +93,6 @@ public class AssignmentsFragment extends Fragment {
         itemsAdapter = new ArrayAdapter<>(root.getContext(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(itemsAdapter);
         setUpListViewListener();
-
 
         return root;
     }
@@ -139,7 +129,6 @@ public class AssignmentsFragment extends Fragment {
                 Toast.makeText(context, "Assignment Removed", Toast.LENGTH_LONG).show();
 
                 assignmentsViewModel.removeItem(position);
-//                items.remove(position);
                 itemsAdapter.notifyDataSetChanged();
                 return true;
             }
@@ -167,13 +156,11 @@ public class AssignmentsFragment extends Fragment {
         } else if(classText.equals("")){
             Toast.makeText(getActivity().getApplicationContext(), "Please enter class.", Toast.LENGTH_LONG).show();
         } else{
-//            itemsAdapter.add(nameText + "\n" + dateText + "\n" + classText);
             assignmentsViewModel.addItem("ASSIGNMENT: "+ "\n" + nameText + "\n"+ "DUE: "+ "\n" + dateText + "\n" + "CLASS: "+ "\n" + classText);
             nameInput.setText("");
             dateInput.setText("");
             classInput.setText("");
             Toast.makeText(getActivity().getApplicationContext(), "Added new class", Toast.LENGTH_LONG).show();
-//            itemsAdapter.notifyDataSetChanged();
         }
     }
 

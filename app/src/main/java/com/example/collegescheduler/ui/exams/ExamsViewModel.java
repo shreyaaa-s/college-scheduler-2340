@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-
-
 import java.util.ArrayList; //changes
 
 public class ExamsViewModel extends ViewModel {
@@ -22,7 +20,6 @@ public class ExamsViewModel extends ViewModel {
     public LiveData<String> getText() {
         return mText;
     }
-
 
     //changes
     public void addItem(String item) {

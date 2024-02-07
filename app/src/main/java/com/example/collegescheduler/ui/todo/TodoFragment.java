@@ -60,7 +60,6 @@ public class TodoFragment extends Fragment {
         return root;
     }
 
-
     private void editItem(int position) {
         String selectedItem = todoViewModel.getItems().get(position);
 

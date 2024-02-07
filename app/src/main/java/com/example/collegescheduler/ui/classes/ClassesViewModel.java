@@ -13,13 +13,11 @@ public class ClassesViewModel extends ViewModel {
 
     public ClassesViewModel() {
         mText = new MutableLiveData<>();
-//        mText.setValue("This is classes fragment");
     }
 
     public LiveData<String> getText() {
         return mText;
     }
-
 
     public void addItem(String item) {
         items.add(item);

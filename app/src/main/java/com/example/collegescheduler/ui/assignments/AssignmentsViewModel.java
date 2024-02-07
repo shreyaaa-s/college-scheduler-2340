@@ -16,8 +16,6 @@ public class AssignmentsViewModel extends ViewModel {
 
     private ArrayList<String> items = new ArrayList<>();
 
-    //private ArrayList<String> classNames = new ArrayList<>();
-
     public AssignmentsViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is assignments fragment");
@@ -40,9 +38,7 @@ public class AssignmentsViewModel extends ViewModel {
     }
 
     //sort changes
-
-
-   public void sortArray(int tog) {
+    public void sortArray(int tog) {
       // tog = 1 for sort by date, tog = 2 for sort by class
        Collections.sort(items, new Comparator<String>() {
           @Override
@@ -54,7 +50,5 @@ public class AssignmentsViewModel extends ViewModel {
       });
 
     }
-
-
 
 }

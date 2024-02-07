@@ -33,14 +33,9 @@ public class ClassesFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        ClassesViewModel classesViewModel =
-//                new ViewModelProvider(this).get(ClassesViewModel.class);
 
         binding = FragmentClassesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-//        final TextView textView = binding.textClasses;
-//        classesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         listView = root.findViewById(R.id.listview);
         button = root.findViewById(R.id.button);
