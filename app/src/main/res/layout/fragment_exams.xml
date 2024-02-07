@@ -38,9 +38,29 @@
         android:ems="10"
         android:hint="Exam Time"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/editTextExamName"
+        app:layout_constraintBottom_toTopOf="@+id/editDateText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/datePickerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Date"
+        app:layout_constraintBottom_toTopOf="@id/buttonExam"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/editDateText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Due Date"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@id/editTextExamName"
+        app:layout_constraintEnd_toStartOf="@+id/datePickerButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -60,7 +80,7 @@
         android:layout_height="1dp"
         android:layout_marginEnd="2dp"
         android:background="?android:attr/listDivider"
-        android:backgroundTint="#3A10D0"
+        android:backgroundTint="@color/gtBlue"
         app:layout_constraintBottom_toTopOf="@+id/editTextExamLocation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
