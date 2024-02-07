@@ -77,7 +77,7 @@ public class ClassesFragment extends Fragment {
         } else if (timeText.equals("")) {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter a time", Toast.LENGTH_LONG).show();
         } else{
-            classesViewModel.addItem(courseText + "\n" + instructorText + "\n" + timeText);
+            classesViewModel.addItem("Class: " + courseText + "\n" +"Instructor: " + instructorText + "\n" + "Time: " + timeText);
             courseInput.setText("");
             instructorInput.setText("");
             timeInput.setText("");

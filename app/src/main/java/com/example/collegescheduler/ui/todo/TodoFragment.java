@@ -108,7 +108,7 @@ public class TodoFragment extends Fragment {
         } else if(detailsText.equals("")) {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter task details", Toast.LENGTH_LONG).show();
         } else {
-            todoViewModel.addItem(taskText + "\n" + detailsText);
+            todoViewModel.addItem("Task: " + taskText + "\n" + "Task Details: " + detailsText);
             taskInput.setText("");
             detailsInput.setText("");
 //            Toast.makeText(getActivity().getApplicationContext(), taskText, Toast.LENGTH_LONG).show();

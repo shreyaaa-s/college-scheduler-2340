@@ -189,7 +189,7 @@ public class AssignmentsFragment extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter class.", Toast.LENGTH_LONG).show();
         } else{
 //            itemsAdapter.add(nameText + "\n" + dateText + "\n" + classText);
-            assignmentsViewModel.addItem(nameText + "\n" + dateText + "\n" + classText);
+            assignmentsViewModel.addItem("Assignment: " + nameText + "\n"+ "Due: " + dateText + "\n" + "Class: " + classText);
             nameInput.setText("");
             dateInput.setText("");
             classInput.setText("");

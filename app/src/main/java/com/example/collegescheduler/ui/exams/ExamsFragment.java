@@ -91,7 +91,7 @@ public class ExamsFragment extends Fragment {
         String LocationText = Locationinput.getText().toString();
 
         if (!(NameText.equals("")) && !(TimeText.equals("")) && !(LocationText.equals(""))) {
-            examsViewModel.addItem(NameText + "\n" + TimeText + "\n" + LocationText);
+            examsViewModel.addItem("Class: " + NameText + "\n" + "Time: " + TimeText + "\n" + "Location: " + LocationText);
             Nameinput.setText("");
             Timeinput.setText("");
             Locationinput.setText("");
