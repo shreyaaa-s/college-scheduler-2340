@@ -79,7 +79,7 @@ public class AssignmentsFragment extends Fragment {
         sortButtonDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignmentsViewModel.sortArray(1);
+                assignmentsViewModel.sortArray(3);
                 itemsAdapter.notifyDataSetChanged();
             }
         });
@@ -87,7 +87,7 @@ public class AssignmentsFragment extends Fragment {
         sortButtonClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignmentsViewModel.sortArray(2);
+                assignmentsViewModel.sortArray(5);
                 itemsAdapter.notifyDataSetChanged();
             }
         });
@@ -168,7 +168,7 @@ public class AssignmentsFragment extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter class.", Toast.LENGTH_LONG).show();
         } else{
 //            itemsAdapter.add(nameText + "\n" + dateText + "\n" + classText);
-            assignmentsViewModel.addItem("Assignment: " + nameText + "\n"+ "Due: " + dateText + "\n" + "Class: " + classText);
+            assignmentsViewModel.addItem("ASSIGNMENT: "+ "\n" + nameText + "\n"+ "DUE: "+ "\n" + dateText + "\n" + "CLASS: "+ "\n" + classText);
             nameInput.setText("");
             dateInput.setText("");
             classInput.setText("");
@@ -186,13 +186,13 @@ public class AssignmentsFragment extends Fragment {
 
         // Set the values of EditText fields to the selected item's values
         EditText nameInput = getView().findViewById(R.id.editNameText);
-        nameInput.setText(parts[0]);
+        nameInput.setText(parts[1]);
 
         EditText dateInput = getView().findViewById(R.id.editDateText);
-        dateInput.setText(parts[1]);
+        dateInput.setText(parts[3]);
 
         EditText classInput = getView().findViewById(R.id.editClassText);
-        classInput.setText(parts[2]);
+        classInput.setText(parts[5]);
 
         // Remove the selected item from the list
         assignmentsViewModel.removeItem(position);

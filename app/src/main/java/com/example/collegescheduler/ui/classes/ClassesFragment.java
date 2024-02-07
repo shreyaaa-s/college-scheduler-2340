@@ -77,7 +77,7 @@ public class ClassesFragment extends Fragment {
         } else if (timeText.equals("")) {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter a time", Toast.LENGTH_LONG).show();
         } else{
-            classesViewModel.addItem("Class: " + courseText + "\n" +"Instructor: " + instructorText + "\n" + "Time: " + timeText);
+            classesViewModel.addItem("CLASS: "+ "\n" + courseText + "\n" +"INSTRUCTOR: "+ "\n" + instructorText + "\n" + "TIME: "+"\n" + timeText);
             courseInput.setText("");
             instructorInput.setText("");
             timeInput.setText("");
@@ -91,13 +91,13 @@ public class ClassesFragment extends Fragment {
         String[] parts = selectedItem.split("\n");
 
         EditText courseInput = getView().findViewById(R.id.editCourseText);
-        courseInput.setText(parts[0]);
+        courseInput.setText(parts[1]);
 
         EditText instructorInput = getView().findViewById(R.id.editInstructorText);
-        instructorInput.setText(parts[1]);
+        instructorInput.setText(parts[3]);
 
         EditText timeInput = getView().findViewById(R.id.editTimeText);
-        timeInput.setText(parts[2]);
+        timeInput.setText(parts[5]);
 
         Toast.makeText(getActivity(),"Course details retrieved",Toast.LENGTH_LONG).show();
 

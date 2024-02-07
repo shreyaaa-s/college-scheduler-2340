@@ -67,10 +67,10 @@ public class TodoFragment extends Fragment {
         String[] parts = selectedItem.split("\n");
 
         EditText taskInput = getView().findViewById(R.id.editTaskText);
-        taskInput.setText(parts[0]);
+        taskInput.setText(parts[1]);
 
         EditText detailsInput = getView().findViewById(R.id.editDetailsTextMultiLine);
-        detailsInput.setText(parts[1]);
+        detailsInput.setText(parts[3]);
 
         todoViewModel.removeItem(position);
         Toast.makeText(getActivity(), "Task retrieved", Toast.LENGTH_LONG).show();
@@ -108,7 +108,7 @@ public class TodoFragment extends Fragment {
         } else if(detailsText.equals("")) {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter task details", Toast.LENGTH_LONG).show();
         } else {
-            todoViewModel.addItem("Task: " + taskText + "\n" + "Task Details: " + detailsText);
+            todoViewModel.addItem("TASK: "+ "\n" + taskText + "\n" + "TASK DETAILS: " + "\n" + detailsText);
             taskInput.setText("");
             detailsInput.setText("");
 //            Toast.makeText(getActivity().getApplicationContext(), taskText, Toast.LENGTH_LONG).show();

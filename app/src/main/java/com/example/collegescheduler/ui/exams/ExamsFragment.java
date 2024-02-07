@@ -129,7 +129,7 @@ public class ExamsFragment extends Fragment {
         String LocationText = Locationinput.getText().toString();
 
         if (!(NameText.equals("")) && !(TimeText.equals("")) && !(LocationText.equals(""))) {
-            examsViewModel.addItem("Class: " + NameText + "\n" + "Time: " + TimeText +"\n" + "Date: " + DateText + "\n" + "Location: " + LocationText);
+            examsViewModel.addItem("CLASS: " + "\n" + NameText + "\n" + "TIME: "+ "\n" + TimeText +"\n" + "DATE: "+"\n" + DateText + "\n" + "LOCATION: "+ "\n" + LocationText);
             Nameinput.setText("");
             Timeinput.setText("");
             Dateinput.setText("");
@@ -144,16 +144,16 @@ public class ExamsFragment extends Fragment {
         String[] parts = selectedItem.split("\n");
 
         EditText Nameinput = getView().findViewById(R.id.editTextExamName);
-        Nameinput.setText(parts[3]);
+        Nameinput.setText(parts[1]);
 
         EditText Timeinput = getView().findViewById(R.id.editTextExamTime);
-        Timeinput.setText(parts[2]);
+        Timeinput.setText(parts[3]);
 
         EditText Dateinput = getView().findViewById(R.id.editTextExamLocation);
-        Dateinput.setText(parts[1]);
+        Dateinput.setText(parts[5]);
 
         EditText Locationinput = getView().findViewById(R.id.editTextExamLocation);
-        Locationinput.setText(parts[0]);
+        Locationinput.setText(parts[7]);
 
         examsViewModel.removeItem(position);
         itemsAdapter.notifyDataSetChanged();
