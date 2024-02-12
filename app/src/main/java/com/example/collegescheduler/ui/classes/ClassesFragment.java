@@ -63,6 +63,8 @@ public class ClassesFragment extends Fragment {
         EditText instructorInput = root.findViewById(R.id.editInstructorText);
         String instructorText = instructorInput.getText().toString();
         EditText timeInput = root.findViewById(R.id.editTimeText);
+        EditText dayInput = root.findViewById(R.id.editCourseDay);
+        String dayText = dayInput.getText().toString();
         String timeText = timeInput.getText().toString();
 
         if(courseText.equals("")){
@@ -72,10 +74,11 @@ public class ClassesFragment extends Fragment {
         } else if (timeText.equals("")) {
             Toast.makeText(getActivity().getApplicationContext(), "Please enter a time", Toast.LENGTH_LONG).show();
         } else{
-            classesViewModel.addItem("CLASS: "+ "\n" + courseText + "\n" +"INSTRUCTOR: "+ "\n" + instructorText + "\n" + "TIME: "+"\n" + timeText);
+            classesViewModel.addItem("CLASS: "+ "\n" + courseText + "\n" +"INSTRUCTOR: "+ "\n" + instructorText + "\n" + "TIME: "+"\n" + timeText + "\n"+ "DAY: " + "\n" + dayText);
             courseInput.setText("");
             instructorInput.setText("");
             timeInput.setText("");
+            dayInput.setText("");
             Toast.makeText(getActivity().getApplicationContext(), "Added new class", Toast.LENGTH_LONG).show();
         }
     }
@@ -93,6 +96,9 @@ public class ClassesFragment extends Fragment {
 
         EditText timeInput = getView().findViewById(R.id.editTimeText);
         timeInput.setText(parts[5]);
+
+        EditText dayInput = getView().findViewById(R.id.editCourseDay);
+        dayInput.setText(parts[7]);
 
         Toast.makeText(getActivity(),"Course details retrieved",Toast.LENGTH_LONG).show();
 
